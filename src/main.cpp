@@ -1,3 +1,4 @@
+#include <cmath>
 #include <iostream>
 #include <algorithm>
 #include <string>
@@ -35,6 +36,17 @@ string decimalToOctal(int input)
     }
     reverse(output.begin(), output.end());
     return output;
+}
+
+string octalToDecimal(int input) {
+    int decimalNumber = 0, i = 0, remainder;
+    while (input != 0) {
+        remainder = input % 10;
+        input /= 10;
+        decimalNumber += remainder * pow(8, i);
+        ++i;
+    }
+    return to_string(decimalNumber);
 }
 
 string decimalToHex(int input)
