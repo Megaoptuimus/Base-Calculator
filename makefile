@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Iincludes
-LDFLAGS = -Llib -lsfml-graphics -lsfml-window -lsfml-system
+LDFLAGS = -Llib
 SOURCES = src/main.cpp
 HEADERS = 
 TARGET = main

@@ -1,9 +1,25 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <cmath>
+#include <vector>
 
 using namespace std;
 
+vector<string> octalToDecimal(int input)
+{
+    int digit = 0, i = 0, remainder;
+    vector<string> digits; 
+    while (input > 0)
+    {
+        remainder = input % 10;
+        input /= 10;
+        digit += remainder * pow(8, i);
+        digits.push_back(to_string(digit));
+        i++;
+    }
+    return digits;
+}
 
 string decimalToBinary(int input)
 {
@@ -109,10 +125,30 @@ int main()
                     cout << "Base 2";
                     break;
                 case 10:
-                    cout << "Base 10";
+                    if(inputNumber == 0)
+                    {
+                        cout << "Octal Of This Number Is: 0" << endl;
+                    }
+                    else
+                    {
+                        vector<string> octal = octalToDecimal(inputNumber);
+                        cout << "Octal Of This Number Is: ";
+                        for (int i = 1; i < octal.size(); i++)
+                        {
+                            cout << octal[i];
+                        }
+                    }
                     break;
                 case 16:
-                    cout << "Base 16";
+                    vector<string> octal = octalToDecimal(inputNumber);
+                    string hex;
+                    cout << "Hex Of This Number Is: ";
+                    for (int i = 1; i < octal.size(); i++)
+                    {
+                        hex += octal[i];
+                    }
+                    string hexadecimal = decimalToHex(inputNumber);
+                    cout << "Hexadecimal Of This Number Is: " << hexadecimal;
                     break;
                 default:
                     cout << "Invalid Output Base";
