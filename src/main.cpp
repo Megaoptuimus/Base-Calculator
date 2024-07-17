@@ -131,24 +131,31 @@ int main()
                     }
                     else
                     {
-                        vector<string> octal = octalToDecimal(inputNumber);
+                        vector<string> decimal = octalToDecimal(inputNumber);
                         cout << "Octal Of This Number Is: ";
-                        for (int i = 1; i < octal.size(); i++)
+                        for (int i = 1; i < decimal.size(); i++)
                         {
-                            cout << octal[i];
+                            cout << decimal[i];
                         }
                     }
                     break;
                 case 16:
-                    vector<string> octal = octalToDecimal(inputNumber);
-                    string hex;
-                    cout << "Hex Of This Number Is: ";
-                    for (int i = 1; i < octal.size(); i++)
+                    if(inputNumber == 0)
                     {
-                        hex += octal[i];
+                        cout << "Hex Of This Number Is: 0 "<< endl;
                     }
-                    string hexadecimal = decimalToHex(inputNumber);
-                    cout << "Hexadecimal Of This Number Is: " << hexadecimal;
+                    else 
+                    {
+                        vector<string> decimals = octalToDecimal(inputNumber);
+                        string decimal;
+                        cout << "Hex Of This Number Is: ";
+                        for (int i = 1; i < decimals.size(); i++)
+                        {
+                            decimal += decimals[i];
+                        }
+                        string hex = decimalToHex(stoi(decimal));
+                        cout << hex;
+                    }
                     break;
                 default:
                     cout << "Invalid Output Base";
