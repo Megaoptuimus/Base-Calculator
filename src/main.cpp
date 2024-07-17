@@ -122,7 +122,22 @@ int main()
         case 8:
             switch(outputBase){
                 case 2:
-                    cout << "Base 2";
+                    if(inputNumber == 0)
+                    {
+                        cout << "Binary Of This Number Is: 000" << endl;
+                    }
+                    else
+                    {
+                        vector<string> decimals = octalToDecimal(inputNumber);
+                        string decimal;
+                        cout << "Binary Of This Number Is: ";
+                        for (int i = 1; i < decimals.size(); i++)
+                        {
+                            decimal += decimals[i];
+                        }
+                        string binary = decimalToBinary(stoi(decimal));
+                        cout << binary;
+                    }
                     break;
                 case 10:
                     if(inputNumber == 0)
