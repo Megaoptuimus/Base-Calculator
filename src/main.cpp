@@ -3,95 +3,23 @@
 #include <string>
 #include <cmath>
 #include <vector>
+#include <cctype>
+#include "binaryTo.h"
+#include "decimalTo.h"
+#include "octalTo.h"
+#include "hexTo.h"
 
 using namespace std;
 
-vector<string> octalToDecimal(int input)
-{
-    int digit = 0, i = 0, remainder;
-    vector<string> digits; 
-    while (input > 0)
-    {
-        remainder = input % 10;
-        input /= 10;
-        digit += remainder * pow(8, i);
-        digits.push_back(to_string(digit));
-        i++;
-    }
-    return digits;
-}
-
-string decimalToBinary(int input)
-{
-    string output = "";
-    while(input > 0)
-    {
-        int remainder = input % 2;
-        if (remainder == 0)
-        {
-            output += "0";
-        }
-        else {
-            output += "1";
-        }
-        input /= 2;
-    }
-    reverse(output.begin(), output.end());
-    return output;
-}
-
-string decimalToOctal(int input)
-{
-    string output = "";
-    while(input > 0)
-    {
-        int remainder = input % 8;
-        output += to_string(remainder);
-        input /= 8;
-    }
-    reverse(output.begin(), output.end());
-    return output;
-}
-
-string decimalToHex(int input)
-{
-    string output = "";
-    while(input > 0)
-    {
-        int remainder = input % 16;
-        switch(remainder)
-        {
-        case 10:
-            output += "A";
-            break;
-        case 11:
-            output += "B";
-            break;
-        case 12:
-            output += "C";
-            break;
-        case 13:
-            output += "D";
-            break;
-        case 14:
-            output += "E";
-            break;
-        case 15: 
-            output += "F";
-            break;
-        default:
-            output += to_string(remainder);
-        }
-        input /= 16;
-    }
-    reverse(output.begin(), output.end());
-    return output;
-}
+string decimalToBinary(int input);
+string decimalToOctal(int input);
+string decimalToHex(int input);
+vector<string> octalToDecimal(int input);
 
 int main()
 {
     int inputNumber, inputBase, outputBase;
-    string outputNumber;
+    string outputNumber, inputNumberStr;
 
 
     cout << "Enter the base of your number: ";
@@ -102,18 +30,45 @@ int main()
 
     cout << "Enter Your Number: ";
     cin >> inputNumber;
+    inputNumberStr = to_string(inputNumber);
 
     switch(inputBase){
         case 2:
             switch(outputBase){
                 case 8:
-                    cout << "Base 8";
+                    if(inputNumber == 0)
+                    {
+                        cout << "Octal Of This Number Is: 0";
+                    }
+                    else
+                    {
+                        string decimal = binaryToDecimal(inputNumber);
+                        string octal = decimalToOctal(stoi(decimal));
+                        cout << "Octal Of This Number Is: " << octal;
+                    }
                     break;
                 case 10:
-                    cout << "Base 10";
+                    if(inputNumber == 0)
+                    {
+                        cout << "Decimal Of This Number Is: 0";
+                    }
+                    else
+                    {
+                        string decimal = binaryToDecimal(inputNumber);
+                        cout << "Decimal Of This Number Is: " << decimal;
+                    }
                     break;
                 case 16:
-                    cout << "Base 16";
+                    if(inputNumber == 0)
+                    {
+                        cout << "Hex Of This Number Is: 0";
+                    }
+                    else
+                    {
+                        string decimal = binaryToDecimal(inputNumber);
+                        string hex = decimalToHex(stoi(decimal));
+                        cout << "Hex Of This Number Is: " << hex;
+                    }
                     break;
                 default:
                     cout << "Invalid Output Base";
@@ -224,7 +179,15 @@ int main()
                     cout << "Base 8";
                     break;
                 case 10:
-                    cout << "Base 10";
+                    if(inputNumberStr == "0")
+                    {
+                        cout << "Decimal Of This Number Is: 0" << endl;
+                    }
+                    else
+                    {
+                        int decimal = hexToDecimal(inputNumberStr);
+                        cout << "Decimal Of This Number Is: " << decimal;
+                    }
                     break;
                 default:
                     cout << "Invalid Output Base";
