@@ -21,7 +21,6 @@ int main()
     int inputNumber, inputBase, outputBase;
     string outputNumber, inputNumberStr;
 
-
     cout << "Enter the base of your number: ";
     cin >> inputBase;
 
@@ -29,8 +28,14 @@ int main()
     cin >> outputBase;
 
     cout << "Enter Your Number: ";
-    cin >> inputNumber;
-    inputNumberStr = to_string(inputNumber);
+    if (inputBase == 16)
+    {
+        cin >> inputNumberStr;
+    }
+    else
+    {
+        cin >> inputNumber;
+    }
 
     switch(inputBase){
         case 2:
@@ -97,12 +102,12 @@ int main()
                 case 10:
                     if(inputNumber == 0)
                     {
-                        cout << "Octal Of This Number Is: 0" << endl;
+                        cout << "Decimal Of This Number Is: 0" << endl;
                     }
                     else
                     {
                         vector<string> decimal = octalToDecimal(inputNumber);
-                        cout << "Octal Of This Number Is: ";
+                        cout << "Decimal Of This Number Is: ";
                         for (int i = 1; i < decimal.size(); i++)
                         {
                             cout << decimal[i];
@@ -136,7 +141,7 @@ int main()
                 case 2:
                     if(inputNumber == 0)
                     {
-                        cout << "Binary Of This Number Is: 0" << endl;
+                        cout << "Binary Of This Number Is: 0000" << endl;
                     }
                     else
                     {
@@ -173,20 +178,52 @@ int main()
         case 16:
             switch(outputBase){
                 case 2:
-                    cout << "Base 2";
-                    break;
-                case 8:
-                    cout << "Base 8";
-                    break;
-                case 10:
-                    if(inputNumberStr == "0")
+                    if (inputNumberStr == "0")
                     {
-                        cout << "Decimal Of This Number Is: 0" << endl;
+                        cout << "Binary Of This Number Is: 0000";
                     }
                     else
                     {
-                        int decimal = hexToDecimal(inputNumberStr);
-                        cout << "Decimal Of This Number Is: " << decimal;
+                        vector<string> decimals = hexToDecimal(inputNumberStr);
+                        string decimal;
+                        for (int i = 0; i < decimals.size(); i++)
+                        {
+                            decimal += decimals[i];
+                        }
+                        string binary = decimalToBinary(stoi(decimal));
+                        cout << "Binary Of This Number Is: " << binary;
+                    }
+                    break;
+                case 8:
+                    if (inputNumberStr == "0")
+                    {
+                        cout << "Octal Of This Number Is: 0";
+                    }
+                    else
+                    {
+                        vector<string> decimals = hexToDecimal(inputNumberStr);
+                        string decimal;
+                        for (int i = 0; i < decimals.size(); i++)
+                        {
+                            decimal += decimals[i];
+                        }
+                        string octal = decimalToOctal(stoi(decimal));
+                        cout << "Octal Of This Number Is: " << octal;
+                    }
+                    break;
+                case 10:
+                    if (inputNumberStr == "0")
+                    {
+                        cout << "Decimal Of This Number Is: 0";
+                    }
+                    else
+                    {
+                        vector<string> decimal = hexToDecimal(inputNumberStr);
+                        cout << "Decimal Of This Number Is: ";
+                        for (int i = 0; i < decimal.size(); i++)
+                        {
+                            cout << decimal[i];
+                        }
                     }
                     break;
                 default:

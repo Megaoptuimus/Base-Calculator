@@ -1,25 +1,27 @@
 using namespace std;
 
-int hexToDecimal(const string& hexStr) {
+vector <string> hexToDecimal(string input)
+{
+    vector <string> digits;
     int decimalValue = 0;
-    int base = 1; //16^0, minimum base power
+    int length = input.size();
 
-    //reads hex string right to left
-    for (int i = hexStr.size() - 1; i>=0; --i) {
-        char hexDigit = hexStr[i];
-        int decimalDigit;
+    for (int i = 0; i < length; ++i)
+    {
+        char hexDigit = input[length - 1 - i];
+        int value;
+        if (hexDigit >= '0' && hexDigit <= '9') {
+            value = hexDigit - '0';
+        } else if (hexDigit >= 'A' && hexDigit <= 'F') {
+            value = hexDigit - 'A' + 10;
+        } else if (hexDigit >= 'a' && hexDigit <= 'f') {
+            value = hexDigit - 'a' + 10;
+        } else {
+            throw invalid_argument("Invalid hexadecimal character");
+        }
 
-        //hex to decimal conversion logic
-        if (isdigit(hexDigit)) {
-            decimalDigit = hexDigit - '0';
-        }
-        else {
-            hexDigit = toupper(hexDigit); // upper case conversion
-            decimalDigit = hexDigit - 'A' + 10; //A to F converted to 10-1
-        }
-        //calculate decimal value
-        decimalValue += decimalDigit * base;
-        base*=16;
+        decimalValue += value * pow(16, i);
     }
-    return decimalValue;
-};
+    digits.push_back(to_string(decimalValue));
+    return digits;
+}
